@@ -13,10 +13,15 @@ import java.util.Scanner;
  * Unfinished. Asks user for dice specifications and creates an array of Die objects.
  */
 public class Driver {
+    private static int[] sumFrequencies;
+
     public static void main(String[] args) {
         int[] input = getInput();
 
+        sumFrequencies = new int[(input[1] - 1) * input[0] + 1];
         Die[] dice = createDice(input[0], input[1]);
+
+        rollDice(dice, input[2], input[0]);
     }
 
     /**
@@ -71,5 +76,18 @@ public class Driver {
         }
 
         return dice;
+    }
+
+    private static void rollDice(Die[] dice, int trials, int numDice) {
+        for (int i = 0; i < trials; i++) {
+            for (Die die : dice) {
+                die.roll();
+                try {
+                    sumFrequencies[die.getCurrentValue() - numDice]++;
+                } catch (DieNotRolledException e) {
+                    System.out.println("DICE NOT ROLLED");
+                }
+            }
+        }
     }
 }
