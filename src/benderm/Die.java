@@ -13,8 +13,10 @@ import java.util.Random;
  * Die generates random integers within a given boundary.
  */
 public class Die {
-    private static Random random = new Random();
-    private int numSides;
+    public static final int MAX_SIDES = 100;
+    public static final int MIN_SIDES = 2;
+    private static final Random random = new Random();
+    private final int numSides;
     private int currentValue = 0;
 
     /**
